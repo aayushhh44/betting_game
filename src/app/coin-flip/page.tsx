@@ -1,4 +1,3 @@
-// pages/coin-flip.js
 "use client";
 import Navbar from "@/components/Navbar";
 import {
@@ -20,6 +19,11 @@ export default function CoinFlip() {
   const [select, setSelect] = useState<string>("");
   const { price, setPrice } = UsePrice();
   const { toast } = useToast();
+
+  const handleSelect = (value: string) => {
+    setSelect(value);
+    setResult(null); 
+  };
 
   const startFlip = () => {
     if (!select || betPriceCoin === null || betPriceCoin <= 0) {
@@ -49,10 +53,15 @@ export default function CoinFlip() {
 
   const handleBalance = (flipResult: string) => {
     if (flipResult === select) {
-      setPrice((prev) => prev + (betPriceCoin ?? 0)); 
+      setPrice((prev) => prev + (betPriceCoin ?? 0));
     } else {
       setPrice((prev) => prev - (betPriceCoin ?? 0));
     }
+  };
+
+  const handleBetChange = (value: string) => {
+    setBetPriceCoin(Number(value));
+    setResult(null);
   };
 
   return (
@@ -75,11 +84,11 @@ export default function CoinFlip() {
           <h1>Flipping...</h1>
         ) : result === select ? (
           <h1>🎉 Congratulations, you won!</h1>
-        ) : (
+        ) : result !== null ? (
           <h1>🥹 Sorry, try again later!</h1>
-        )}
+        ) : null}
         <div className="my-16">
-          <Select onValueChange={(value: string) => setSelect(value)}>
+          <Select onValueChange={handleSelect}>
             <SelectTrigger className="w-[180px]">
               <SelectValue placeholder="Head or Tail?" />
             </SelectTrigger>
@@ -93,7 +102,7 @@ export default function CoinFlip() {
         <div>
           <p>Enter your betting amount</p>
           <input
-            onChange={(e) => setBetPriceCoin(Number(e.target.value))}
+            onChange={(e) => handleBetChange(e.target.value)}
             type="number"
             className={`border border-black ${
               betPriceCoin > price ? "border-red-500" : ""
