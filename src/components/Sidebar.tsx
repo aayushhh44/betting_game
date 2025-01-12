@@ -2,6 +2,7 @@
 
 import { BadgeCent, Bell, Home, Trophy, User } from "lucide-react";
 
+
 import {
   Command,
   CommandEmpty,
@@ -21,6 +22,7 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
+import Link from "next/link";
 
 export default function Sidebar() {
   const menuList = [
@@ -37,7 +39,7 @@ export default function Sidebar() {
     {
       group: "Games",
       items: [
-        { link: "/", text: "Tic Tac Toe" },
+        { link: "/coin-flip", text: "Coin Flip" },
         { link: "/", text: "Chess" },
         { link: "/", text: "Transfer Money" },
         { link: "/", text: "Logs" },
@@ -74,10 +76,13 @@ export default function Sidebar() {
             {menuList?.map((menus: any, key: number) => (
               <CommandGroup className="flex flex-col" key={key} heading={menus.group}>
                 {menus.items.map((option: any, optionKey: number) => (
-                  <CommandItem className="cursor-pointer" key={optionKey}>
-                    {option?.icon}
-                    {option?.text}
-                  </CommandItem>
+                <Link href={option.link} passHref>
+                <CommandItem className="cursor-pointer" key={optionKey}>
+                  {option?.icon}
+                  {option?.text}
+                </CommandItem>
+              </Link>
+              
                 ))}
               </CommandGroup>
             ))}
