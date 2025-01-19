@@ -2,7 +2,6 @@
 
 import { BadgeCent, Bell, Home, Trophy, User } from "lucide-react";
 
-
 import {
   Command,
   CommandEmpty,
@@ -48,54 +47,95 @@ export default function Sidebar() {
   ];
 
   return (
-    <div className="w-[300px] gap-4 min-w-[300px] border-r min-h-screen p-4 flex flex-col">
+    <div className="sm:w-[300px] gap-4 sm:min-w-[300px] border-r min-h-screen sm:p-4 flex flex-col">
       {/* hello */}
       <div>
         <Sheet>
-          <SheetTrigger className="sm:hidden">Click</SheetTrigger>
+          <SheetTrigger className="absolute sm:hidden p-4">Click</SheetTrigger>
           <SheetContent>
             <SheetHeader>
-              <SheetTitle>Are you absolutely sure?</SheetTitle>
+              {/* <SheetTitle>Are you absolutely sure?</SheetTitle>
               <SheetDescription>
                 This action cannot be undone. This will permanently delete your
                 account and remove your data from our servers.
-              </SheetDescription>
-            </SheetHeader>
-          </SheetContent>
-        </Sheet>
-      </div>
-      <div>
-        <UserItem />
-      </div>
-      <div className="grow">
-        <Command>
-          {/* <CommandInput placeholder="Type a command or search..." /> */}
-          <CommandList>
-            {/* <CommandEmpty>No results found.</CommandEmpty> */}
+              </SheetDescription> */}
 
-            {menuList?.map((menus: any, key: number) => (
-              <CommandGroup className="flex flex-col" key={key} heading={menus.group}>
-                {menus.items.map((option: any, optionKey: number) => (
-                <Link href={option.link} passHref>
-                <CommandItem className="cursor-pointer" key={optionKey}>
-                  {option?.icon}
-                  {option?.text}
-                </CommandItem>
-              </Link>
-              
-                ))}
-              </CommandGroup>
-            ))}
-            <CommandSeparator />
-            {/* <CommandGroup heading="Settings">
+              <UserItem />
+
+              <Command>
+                {/* <CommandInput placeholder="Type a command or search..." /> */}
+                <CommandList>
+                  {/* <CommandEmpty>No results found.</CommandEmpty> */}
+
+                  {menuList?.map((menus: any, key: number) => (
+                    <CommandGroup
+                      className="flex flex-col"
+                      key={key}
+                      heading={menus.group}
+                    >
+                      {menus.items.map((option: any, optionKey: number) => (
+                        <Link href={option.link} passHref>
+                          <CommandItem
+                            className="cursor-pointer"
+                            key={optionKey}
+                          >
+                            {option?.icon}
+                            {option?.text}
+                          </CommandItem>
+                        </Link>
+                      ))}
+                    </CommandGroup>
+                  ))}
+                  <CommandSeparator />
+                  {/* <CommandGroup heading="Settings">
               <CommandItem>Profile</CommandItem>
               <CommandItem>Billing</CommandItem>
               <CommandItem>Settings</CommandItem>
             </CommandGroup> */}
-          </CommandList>
-        </Command>
+                </CommandList>
+              </Command>
+            </SheetHeader>
+          </SheetContent>
+        </Sheet>
       </div>
-      <div>Settings/Notification</div>
+
+      <div className="hidden sm:block">
+        <div>
+          <UserItem />
+        </div>
+        <div className="grow">
+          <Command>
+            {/* <CommandInput placeholder="Type a command or search..." /> */}
+            <CommandList>
+              {/* <CommandEmpty>No results found.</CommandEmpty> */}
+
+              {menuList?.map((menus: any, key: number) => (
+                <CommandGroup
+                  className="flex flex-col"
+                  key={key}
+                  heading={menus.group}
+                >
+                  {menus.items.map((option: any, optionKey: number) => (
+                    <Link href={option.link} passHref>
+                      <CommandItem className="cursor-pointer" key={optionKey}>
+                        {option?.icon}
+                        {option?.text}
+                      </CommandItem>
+                    </Link>
+                  ))}
+                </CommandGroup>
+              ))}
+              <CommandSeparator />
+              {/* <CommandGroup heading="Settings">
+              <CommandItem>Profile</CommandItem>
+              <CommandItem>Billing</CommandItem>
+              <CommandItem>Settings</CommandItem>
+            </CommandGroup> */}
+            </CommandList>
+          </Command>
+        </div>
+      </div>
+      {/* <div>Settings/Notification</div> */}
     </div>
   );
 }

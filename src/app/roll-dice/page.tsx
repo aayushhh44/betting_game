@@ -1,5 +1,6 @@
 "use client";
 import Navbar from "@/components/Navbar";
+import { Button } from "@/components/ui/button";
 import {
   Dialog,
   DialogContent,
@@ -15,6 +16,8 @@ const Page = () => {
   const [rolling2, setRolling2] = useState(false);
   const [diceValue, setDiceValue] = useState(1);
   const [diceValue2, setDiceValue2] = useState(1);
+  const [dialogOpen, setDialogOpen] = useState(false);
+  const [sumAmount, setSumAmount] = useState<string>();
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -25,6 +28,7 @@ const Page = () => {
       //   const newDiceValue2 = Math.ceil(Math.random() * 6);
       setDiceValue(newDiceValue);
       //   setDiceValue2(newDiceValue2);
+      setDialogOpen(true);
       setRolling(false);
     }, 1000);
   };
@@ -40,6 +44,44 @@ const Page = () => {
       setDiceValue2(newDiceValue2);
       setRolling2(false);
     }, 1000);
+
+    <Dialog>
+      <DialogTrigger className="text-white p-2 rounded-md font-bold bg-green-700">
+        How to Play?
+      </DialogTrigger>
+
+      <DialogContent>
+        <DialogHeader>
+          <DialogTitle>How to Play</DialogTitle>
+          <DialogDescription>
+            <h3 className="font-bold text-sm">Game Objective</h3>
+            <p>
+              Roll the first dice and predict what the sum of both dice will be
+              without rolling the second dice. Once you've made your prediction,
+              roll the second dice and check if you guessed the sum correctly!
+            </p>
+            <h3>Steps</h3>
+            <ol>
+              <li>
+                Click "Roll Dice" to roll the first dice and get its value.
+              </li>
+              <li>
+                Based on the first dice roll, predict the sum of both dice.
+              </li>
+              <li>Click "Roll Dice" again to roll the second dice.</li>
+              <li>
+                Check if your prediction is correct by adding both dice values.
+              </li>
+            </ol>
+            <h3>Winning Condition</h3>
+            <p>
+              If you correctly predict the sum of the two dice, you win!
+              Otherwise, you can try again.
+            </p>
+          </DialogDescription>
+        </DialogHeader>
+      </DialogContent>
+    </Dialog>;
   };
 
   const renderDots = (diceValue: number) => {
@@ -88,6 +130,8 @@ const Page = () => {
       ></div>
     ));
   };
+
+  //   const
 
   return (
     <div className="p-4">
@@ -150,12 +194,13 @@ const Page = () => {
           <h1>Dice 1</h1>
           Dice Value: {diceValue}
           <br />
-          <button
+          <Button
             onClick={handleSubmit}
-            className="text-xl my-8 font-bold rounded-md bg-red-400 p-2"
+            // variant="outline"
+            // className="text-xl my-8 font-bold rounded-md bg-red-400 p-2"
           >
-            {rolling ? "Rolling..." : "Roll dice"}
-          </button>
+            {rolling ? "Rolling..." : "Roll dice 1"}
+          </Button>
         </div>
 
         <h1 className="text-6xl">+</h1>
@@ -173,23 +218,32 @@ const Page = () => {
             Dice Value: {diceValue2}
           </div>
 
-          <button
+          <Button
             onClick={handleSubmit2}
-            className="text-xl my-8 font-bold bg-red-400 rounded-md p-2"
+            // className="text-xl my-8 font-bold bg-red-400 rounded-md p-2"
           >
-            {rolling2 ? "Rolling" : "Roll dice"}
-          </button>
+            {rolling2 ? "Rolling" : "Roll dice 2"}
+          </Button>
         </div>
       </div>
       {/* Form */}
       <div className="flex flex-col">
         {/* <form className="flex flex-col gap-3" onSubmit={handleSubmit}> */}
         <label htmlFor="betAmount">Enter your betting amount</label>
+
         <input
           className="border border-red-500 p-2 w-36"
           type="number"
           id="betAmount"
         />
+
+        <div className="w-full bg-green-700 my-4 p-2 text-white">
+          {sumAmount ? (
+            <p className="text-center">Your guessed number: {sumAmount}</p>
+          ) : (
+            <p className="text-center">You've not guessed number</p>
+          )}
+        </div>
         <button
           className={`bg-red-400 p-2 text-white rounded hover:bg-red-500 transition`}
           type="submit"
@@ -197,6 +251,32 @@ const Page = () => {
         >
           Bet
         </button>
+
+        <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
+          {/* <DialogTrigger className="text-white p-2 rounded-md font-bold bg-green-700">
+          How to Play?
+        </DialogTrigger> */}
+
+          <DialogContent>
+            <DialogHeader>
+              <DialogTitle>Enter the number you've guessed</DialogTitle>
+
+              <input
+                value={sumAmount}
+                onChange={(e) => setSumAmount(e?.target?.value)}
+                className="p-2 border border-black w-full"
+                type="text"
+                placeholder="Enter the number you've guessed"
+              />
+              <Button
+                onClick={() => setDialogOpen(!dialogOpen)}
+                className="bg-black p-2 rounded-md mx-auto text-white"
+              >
+                Submit
+              </Button>
+            </DialogHeader>
+          </DialogContent>
+        </Dialog>
       </div>
     </div>
   );

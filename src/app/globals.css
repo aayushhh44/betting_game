@@ -71,41 +71,40 @@ body {
   }
 }
 
-
-
-
-
-  @keyframes flip {
-    0% {
-      transform: rotateX(0);
-    }
-    50% {
-      transform: rotateX(180deg);
-    }
-    100% {
-      transform: rotateX(360deg);
-    }
+@keyframes flip {
+  0% {
+    transform: rotateX(0);
   }
-
-  @keyframes rollAnimation {
-    0% {
-      transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg);
-    }
-    25% {
-      transform: rotateX(90deg) rotateY(0deg) rotateZ(0deg);
-    }
-    50% {
-      transform: rotateX(0deg) rotateY(90deg) rotateZ(0deg);
-    }
-    75% {
-      transform: rotateX(0deg) rotateY(0deg) rotateZ(90deg);
-    }
-    100% {
-      transform: rotateX(360deg) rotateY(360deg) rotateZ(360deg);
-    }
+  50% {
+    transform: rotateX(180deg);
   }
-
-
-  .animate-roll {
-    animation: rollAnimation 1s ease-out;
+  100% {
+    transform: rotateX(360deg);
   }
+}
+
+.animate-flip {
+  animation: flip 3s ease-in-out;
+}
+
+@keyframes rollAnimation {
+  0% {
+    transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg);
+  }
+  25% {
+    transform: rotateX(90deg) rotateY(0deg) rotateZ(0deg);
+  }
+  50% {
+    transform: rotateX(0deg) rotateY(90deg) rotateZ(0deg);
+  }
+  75% {
+    transform: rotateX(0deg) rotateY(0deg) rotateZ(90deg);
+  }
+  100% {
+    transform: rotateX(360deg) rotateY(360deg) rotateZ(360deg);
+  }
+}
+
+.animate-roll {
+  animation: rollAnimation 1s ease-out;
+}
